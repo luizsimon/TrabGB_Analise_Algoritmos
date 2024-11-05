@@ -1,7 +1,9 @@
-# Analisando Jogos de Civilizações Antigas - Solução com Programação Dinâmica
+# Analisando Jogos de Civilizações Antigas
 
 ## Descrição Geral
-Este projeto implementa uma solução otimizada utilizando programação dinâmica para resolver o problema de equilibrar as somas das partes superior e inferior de um conjunto de placas, possivelmente descartando uma placa. A solução transforma o problema em uma variação do **Subset Sum Problem**, buscando um subconjunto de placas cuja soma das diferenças permita equilibrar as somas. Para otimizar o espaço de estado, utiliza-se um `unordered_map`, permitindo lidar com até 400 placas de forma eficiente.
+Este projeto implementa uma solução para resolver o problema de combinação de pontuações em placas de um campeonato. Dado um conjunto de placas onde cada uma possui uma pontuação para dois jogadores, o objetivo é verificar se é possível organizar as placas de maneira que a soma das pontuações de cada lado seja igual ao final da sequência.
+
+Caso não seja possível alcançar uma combinação com todas as placas, o programa busca a melhor combinação descartando apenas uma placa, de modo a maximizar a soma final. Se houver mais de uma placa que possa ser descartada para alcançar uma solução viável, a placa com o menor valor de pontuação é descartada. Esta solução também permite que as placas sejam invertidas para maximizar as possibilidades de combinações.
 
 ## Integrantes da Dupla
 
