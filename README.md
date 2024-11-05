@@ -1,7 +1,15 @@
 # Analisando Jogos de Civilizações Antigas
 
 ## Descrição Geral
-Este projeto implementa uma solução para resolver o problema de combinação de pontuações em placas de um campeonato. Dado um conjunto de placas onde cada uma possui uma pontuação para dois jogadores, o objetivo é verificar se é possível organizar as placas de maneira que a soma das pontuações de cada lado seja igual ao final da sequência.
+Este projeto implementa uma solução para resolver o problema de combinação de pontuações em placas de um campeonato. Dado um conjunto de placas onde cada uma possui uma pontuação para dois jogadores, o objetivo é verificar se é possível organizar as placas de maneira que a soma das pontuações de cada lado seja igual ao final da sequência. Por exemplo: considerando as placas: {1, 2}, {6, 3}, {3, 1}, a organização das placas deve ser:
+
+<div align="center">
+
+1 6 1  => 8<br>
+2 3 3  => 8
+
+</div>
+                                    
 
 Caso não seja possível alcançar uma combinação com todas as placas, o programa busca a melhor combinação descartando apenas uma placa, de modo a maximizar a soma final. Se houver mais de uma placa que possa ser descartada para alcançar uma solução viável, a placa com o menor valor de pontuação é descartada. Esta solução também permite que as placas sejam invertidas para maximizar as possibilidades de combinações.
 
