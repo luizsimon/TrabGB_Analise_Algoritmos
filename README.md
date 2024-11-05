@@ -30,5 +30,3 @@ Após a compilação, execute:
 ```bash
 ./sol_1
 ```
-
-Substitua entrada pelo arquivo que contém os casos de teste de entrada.
