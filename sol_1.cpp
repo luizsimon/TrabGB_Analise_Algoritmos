@@ -19,13 +19,14 @@
 #include <vector>
 #include <climits>
 #include <cmath>
+#include <cstdint>
 
 using namespace std;
 
-long resultado = 0, somaFinalAtual = 0, somaFinalAnterior = INT_MIN;
+int32_t resultado = 0, somaFinalAtual = 0, somaFinalAnterior = INT32_MIN;
 
 // função para encontrar uma combinação de placas que tenha o mesmo valor do resultado
-void encontrarCombinacoesPlacas(const vector<int> &difPlacasTodas, vector<int> &indices, vector<int> &indicesCorretos, int resultado, long soma, int start, bool &encontrado) {
+void encontrarCombinacoesPlacas(const vector<int> &difPlacasTodas, vector<int> &indices, vector<int> &indicesCorretos, int resultado, int32_t soma, int start, bool &encontrado) {
     // Se uma combinação já encontrada, não fazer mais nada
     if (encontrado) {
         return;
@@ -57,14 +58,14 @@ void encontrarCombinacoesPlacas(const vector<int> &difPlacasTodas, vector<int> &
 }
 
 // função para definir e inverter as placas a fim de ter o mesma soma para ambas as colunas
-bool definirInverterPlacas(vector<vector<int>> &conjuntoPlacas, vector<int> &placasTodas, bool par) {
-    long soma = 0;
+bool definirInverterPlacas(vector<vector<int>> &conjuntoPlacas, vector<int> &difPlacasTodas, bool par) {
+    int32_t soma = 0;
     bool encontrado = false;
     vector<int> indices, indicesCorretos;
-    resultado = abs(resultado / 2);
+    resultado = resultado / 2;
 
     // encontra e salva no indicesCorretos a primeira combinação de indices cuja soma das placas é igual ao resultado
-    encontrarCombinacoesPlacas(placasTodas, indices, indicesCorretos, resultado, 0, 0, encontrado);
+    encontrarCombinacoesPlacas(difPlacasTodas, indices, indicesCorretos, resultado, 0, 0, encontrado);
 
     // verifica se uma combinação foi encontrada e o resultado inicial é impar
     if (encontrado && !par) {
@@ -117,6 +118,46 @@ bool definirInverterPlacas(vector<vector<int>> &conjuntoPlacas, vector<int> &pla
 
         return true;
     }
+    
+    int verificador = 0, indice = 0;
+
+    // se encontrado = false, verifica se os elementos da placa são iguais 
+    for (int i = 0; i < difPlacasTodas.size(); i++) {
+        if (difPlacasTodas[i] == 0) {
+            verificador++;
+        } else indice = i;
+    }
+    
+    int N;
+    
+    if (par) N = difPlacasTodas.size() - 1;
+    else N = difPlacasTodas.size();
+    
+    // se todas as placas possuem elementos iguais, com exceção de uma placa, retira-se essa placa
+    if (verificador == N) {
+        int conjuntoDescartado[1][2];
+        if (conjuntoPlacas[indice][0] < conjuntoPlacas[indice][1]) {
+            conjuntoDescartado[0][0] = conjuntoPlacas[indice][0];
+            conjuntoDescartado[0][1] = conjuntoPlacas[indice][1];
+        } else {
+            conjuntoDescartado[0][1] = conjuntoPlacas[indice][0];
+            conjuntoDescartado[0][0] = conjuntoPlacas[indice][1];
+        }
+
+        conjuntoPlacas.erase(conjuntoPlacas.begin() + indice);
+
+        somaFinalAtual = 0;
+
+        // calcula a soma de toda a coluna
+        for (int i = 0; i < conjuntoPlacas.size(); i++) {
+            somaFinalAtual += conjuntoPlacas[i][0];
+        }
+
+        cout << somaFinalAtual << " descartada a placa " << conjuntoDescartado[0][0] << " " << conjuntoDescartado[0][1] << "\n";
+
+        return true;
+    }
+
     return false;
 }
 
@@ -178,7 +219,7 @@ void calcularCombinacaoPlacas(vector<vector<int>> &conjuntoPlacas)
         Vetor difPlacasTodas => armazena todas as diferenças entre os elementos de uma placa do conjuntoPlacas
     */
     vector<int> difPlacasTodas, difPlacasImpares;
-    long somaParcial = 0, temp = 0;
+    int32_t somaParcial = 0, temp = 0;
     resultado = 0;
 
     for (int i = 0; i < conjuntoPlacas.size(); i++) {
@@ -207,7 +248,7 @@ void calcularCombinacaoPlacas(vector<vector<int>> &conjuntoPlacas)
 
         if (somaParcial % 2 == 0) {
             continue;
-        } else {          
+        } else {
             difPlacasImpares.push_back(somaParcial);
         }
     }
@@ -219,10 +260,8 @@ void calcularCombinacaoPlacas(vector<vector<int>> &conjuntoPlacas)
 
     if (resultado % 2 == 0) {
         bool retorno = definirInverterPlacas(conjuntoPlacas, difPlacasTodas, true);
-        if (!retorno)
-            cout << "impossível" << "\n";
-    }
-    else {
+        if (!retorno) cout << "impossível" << "\n";
+    } else {
         removerPlaca(conjuntoPlacas, difPlacasTodas, difPlacasImpares);
     }
 }
@@ -259,9 +298,9 @@ int main() {
 
     file.close();
 
-    for (size_t i = 0; i < todosConjuntoPlacas.size(); i++) {
-        // Define SomaFinalAnterior para INT_MIN para não influenciar na próxima iteração
-        somaFinalAnterior = INT_MIN;
+    for (int i = 0; i < todosConjuntoPlacas.size(); i++) {
+        // Define SomaFinalAnterior para INT32_MIN para não influenciar na próxima iteração
+        somaFinalAnterior = INT32_MIN;
         calcularCombinacaoPlacas(todosConjuntoPlacas[i]);
     }
     
