@@ -27,10 +27,6 @@ int32_t resultado = 0, somaFinalAtual = 0, somaFinalAnterior = INT32_MIN;
 
 // função para encontrar uma combinação de placas que tenha o mesmo valor do resultado
 void encontrarCombinacoesPlacas(const vector<int> &difPlacasTodas, vector<int> &indices, vector<int> &indicesCorretos, int resultado, int32_t soma, int start, bool &encontrado) {
-    // Se uma combinação já encontrada, não fazer mais nada
-    if (encontrado) {
-        return;
-    }
 
     // Verifica se a soma atual é igual ao desejado
     if (soma == resultado) {
@@ -46,8 +42,8 @@ void encontrarCombinacoesPlacas(const vector<int> &difPlacasTodas, vector<int> &
         return;
     }
 
-    // Percorre o vetor a partir da posição 'start'
-    for (int i = start; i < difPlacasTodas.size(); i++) {
+    // Percorre o vetor a partir da posição 'start' - se encontrado = true, sai do loop
+    for (int i = start; i < difPlacasTodas.size() && !encontrado; i++) {
         // Adiciona o índice atual à combinação
         indices.push_back(i);
         // Chama recursivamente, incluindo o elemento atual na soma
@@ -267,7 +263,7 @@ void calcularCombinacaoPlacas(vector<vector<int>> &conjuntoPlacas)
 }
 
 int main() {
-    ifstream file("in_out/in4");
+    ifstream file("in_out/in7");
     if (!file.is_open()) {
         cerr << "Erro ao abrir o arquivo!" << "\n";
         return 1;
