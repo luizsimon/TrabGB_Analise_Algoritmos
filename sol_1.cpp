@@ -158,12 +158,12 @@ bool definirInverterPlacas(vector<vector<int>> &conjuntoPlacas, vector<int> &dif
 }
 
 // função para tentar remover uma placa - chamada quando o resultado inicial é impar
-void removerPlaca(vector<vector<int>> &conjuntoPlacas, vector<int> &difPlacasTodas, vector<int> &difPlacasImpares) {
+void removerPlaca(vector<vector<int>> &conjuntoPlacas, vector<int> &difPlacasTodas, vector<int> &difPlacasInteresse) {
     bool placaDescartada;
     int conjuntoRetirado[1][2];
-    for (int i = 0; i < difPlacasImpares.size(); i++) {
+    for (int i = 0; i < difPlacasInteresse.size(); i++) {
         for (int j = 0; j < difPlacasTodas.size(); j++) {
-            if (difPlacasTodas[j] == difPlacasImpares[i]) {
+            if (difPlacasTodas[j] == difPlacasInteresse[i]) {
                 // salva a placa atual e a conjuntoPlacas atual
                 vector<int> conjuntoPlacasTemp = conjuntoPlacas[j];
                 int placaTemp = difPlacasTodas[j];
