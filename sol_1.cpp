@@ -214,7 +214,7 @@ void calcularCombinacaoPlacas(vector<vector<int>> &conjuntoPlacas)
         Vetor difPlacasImpares => armazena apenas as diferenças impares entre os elementos de uma placa do conjuntoPlacas
         Vetor difPlacasTodas => armazena todas as diferenças entre os elementos de uma placa do conjuntoPlacas
     */
-    vector<int> difPlacasTodas, difPlacasImpares;
+    vector<int> difPlacasTodas, difPlacasImpares, difPlacasPares;
     int32_t somaParcial = 0, temp = 0;
     resultado = 0;
 
@@ -243,7 +243,7 @@ void calcularCombinacaoPlacas(vector<vector<int>> &conjuntoPlacas)
         difPlacasTodas.push_back(somaParcial);
 
         if (somaParcial % 2 == 0) {
-            continue;
+            difPlacasPares.push_back(somaParcial);
         } else {
             difPlacasImpares.push_back(somaParcial);
         }
@@ -256,14 +256,14 @@ void calcularCombinacaoPlacas(vector<vector<int>> &conjuntoPlacas)
 
     if (resultado % 2 == 0) {
         bool retorno = definirInverterPlacas(conjuntoPlacas, difPlacasTodas, true);
-        if (!retorno) cout << "impossível" << "\n";
+        if (!retorno) removerPlaca(conjuntoPlacas, difPlacasTodas, difPlacasPares);
     } else {
         removerPlaca(conjuntoPlacas, difPlacasTodas, difPlacasImpares);
     }
 }
 
 int main() {
-    ifstream file("in_out/in7");
+    ifstream file("in_out/in4");
     if (!file.is_open()) {
         cerr << "Erro ao abrir o arquivo!" << "\n";
         return 1;
